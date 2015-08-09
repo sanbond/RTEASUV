@@ -20,7 +20,8 @@
             <Columns>
                 <dx:GridViewCommandColumn ShowDeleteButton="True" ShowEditButton="True" ShowNewButtonInHeader="True" VisibleIndex="0">
                 </dx:GridViewCommandColumn>
-                <dx:GridViewDataTextColumn FieldName="ContactID" VisibleIndex="1">
+                <dx:GridViewDataTextColumn FieldName="ContactID" VisibleIndex="1" ReadOnly="True">
+                    <EditFormSettings Visible="False" />
                 </dx:GridViewDataTextColumn>
                 <dx:GridViewDataTextColumn FieldName="ContactName" VisibleIndex="2">
                 </dx:GridViewDataTextColumn>
@@ -35,20 +36,19 @@
         </dx:ASPxGridView>
         <asp:SqlDataSource ID="SqlDataSource1" runat="server" ConnectionString="<%$ ConnectionStrings:EnergyCalcConnectionString %>" 
             SelectCommand="SELECT ContactID, ContactName, ContactAddress, ContactPosition, ContactPhone FROM Contacts" 
-            InsertCommand="INSERT INTO Contacts(ContactName, ContactAddress, ContactPosition, ContactPhone, ContactID) VALUES (@ContactName, @ContactAddress, @ContactPosition, @ContactPhone, @ContactID)" 
+            InsertCommand="INSERT INTO Contacts(ContactName, ContactAddress, ContactPosition, ContactPhone) VALUES (@ContactName, @ContactAddress, @ContactPosition, @ContactPhone)" 
             DeleteCommand="DELETE FROM Contacts WHERE (ContactID = @original_ContactID)" 
             UpdateCommand="UPDATE Contacts SET ContactID = @ContactID, ContactName = @ContactName, ContactAddress = @ContactAddress, ContactPosition = @ContactPosition, ContactPhone = @ContactPhone WHERE (ContactID = @original_ContactID) AND (ContactName = @original_ContactName) AND (ContactAddress = @original_ContactAddress) AND (ContactPosition = @original_ContactPosition) AND (ContactPhone = @original_ContactPhone)"
             ConflictDetection="CompareAllValues" 
             OldValuesParameterFormatString="original_{0}">
             <DeleteParameters>
-                <asp:Parameter Name="ContactID" />
+                <asp:Parameter Name="original_ContactID" />
             </DeleteParameters>
             <InsertParameters>
                 <asp:Parameter Name="ContactName" />
                 <asp:Parameter Name="ContactAddress" />
                 <asp:Parameter Name="ContactPosition" />
                 <asp:Parameter Name="ContactPhone" />
-                <asp:Parameter Name="ContactID" />
             </InsertParameters>
             <UpdateParameters>
                 <asp:Parameter Name="ContactID" />
